@@ -1,6 +1,6 @@
 #ifndef DSA_ASVECTOR_H
 #define DSA_ASVECTOR_H
-
+#include <iostream>
 static const int INIT_SIZE = 16;
 
 /* AmnesiacSloth custom implementation of multable array with auto resizing */
@@ -12,17 +12,17 @@ private:
 
     // when capacity reached, resize to double
     // when popping an element, if this causes array to reach 1/4 load, resize to half
-    bool resize(int factor);
+    bool resize(float factor);
 public:
     asVector();
     ~asVector();
 
     // return number of data elems in the list
-    int size();
+    int getSize() const ;
     // returns total # of elements that can fit in this array
-    int capacity();
+    int getCapacity() const;
     // true if true :)
-    bool isEmpty();
+    bool isEmpty() const;
     // returns element at given index
     int at(int idx);
     // insert element at end of the array
@@ -34,7 +34,7 @@ public:
     // remove and return the 0th element
     int pop();
     // remove element at given index, shifts all remaining elements to left
-    bool delete(int idx);
+    bool deleteAt(int idx);
     // remove all instances of element, return num of elements removed
     int remove(int element);
     // return first instance of element, -1 if none found

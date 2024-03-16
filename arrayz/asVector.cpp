@@ -3,42 +3,43 @@
 static const int ERROR_FLAG = -1;
 static const float DOUBLE = 2.0;
 static const float HALF = 0.5;
-class asVector{
+
     asVector::asVector() {
         data = new int[INIT_SIZE];
         capacity = INIT_SIZE;
         size = 0;
     }
     asVector::~asVector(){
-        delete data;
+        delete[] data;
     }
 
 
-    bool asVector::resize(int factor) {
-        capacity = capacity*factor;
-        int* tmp = new int[capacity];
-        for (int i = 0; i < size; i++) {
-            tmp[i] = data[i]
+    bool asVector::resize(float factor) {
+        capacity = (size_t)((float)capacity*factor); // cast after float op
+        int* tmp = new int[(int)capacity];
+        for (size_t i = 0; i < size; i++) {
+            tmp[i] = data[i];
         }
         delete data;
         data = tmp;
+        return true;
     }
-    int asVector::size(){
+    int asVector::getSize() const {
         return size;
     }
 
-    int asVector::capacity() {
-        return this->capacity;
+    int asVector::getCapacity() const {
+        return capacity;
     }
 
-    bool asVector::isEmpty(){
-        return (size == 0);
+    bool asVector::isEmpty() const{
+        return (getSize() == 0);
     }
 
     int asVector::at(int idx) {
         // check for mem boundaries
         if (idx >= 0  && idx < this->size) {
-            return this->data[idx];
+            return data[idx];
         }
         else {
             std::cout<< "invalid index!" << std::endl;
@@ -47,25 +48,25 @@ class asVector{
     }
 
     bool asVector::push(int element) {
-        if (this->size == this->capacity) {
-            resize();
+        if (getSize() >= getCapacity()) { // == MUST MATCH, >= account for going over capacity, whether by 1 or 50
+            resize(DOUBLE);
         }
-        this->data[size] = element;
+        data[size] = element;
         size++;
         return true;
     }
 
     bool asVector::insert(int element, int idx) {
         // Seg fault check
-        if (idx < 0 || idx >=this->size) {
+        if (idx < 0 || idx >=getSize()) {
             return false;
         }
         size++; // update new elem count since we know insertion will succeed, and account for resizing
-        if (this->size == capacity) {
-            resize();
+        if (size >= capacity) {
+            resize(DOUBLE);
         }
         // reverse iterate through rest of the array pushing everything to the "right"
-        for (int i = size; i >= idx; i--) {
+        for (size_t i = size-1; i > idx; i--) {
             data[i] = data[i-1];
         }
         // now insert in empty position
@@ -84,6 +85,9 @@ class asVector{
     int asVector::pop() {
         int tmp = data[0];
         size--;
+        if (size <= capacity/4) { // Issue if capacity ever reaches like 1 or 2?
+            resize(HALF);
+        }
         for (int i = 0; i < size; i++) {
             data[i] = data[i+1];
         }
@@ -91,7 +95,7 @@ class asVector{
         return tmp;
     }
 
-    bool asVector::delete(int idx) {
+    bool asVector::deleteAt(int idx) {
         // Seg fault check
         if (idx < 0 || idx >=this->size) {
             return false;
@@ -101,14 +105,18 @@ class asVector{
             data[i] = data[i+1];
         }
         size--;
+        if (size <= capacity/4) { // Issue if capacity ever reaches like 1 or 2?
+            resize(HALF);
+        }
         data[size] = 0;
+
         return true;
     }
 
     // How to fix so that array elements stay contiguous?
     int asVector::remove(int element) {
         int removeCount = 0;
-        for (int i =0; i < size;i++) {
+        for (size_t i =0; i < size;i++) {
             if (data[i] == element) {
                 data[i] = 0;
                 removeCount++;
@@ -116,17 +124,18 @@ class asVector{
 
         }
         size = size-removeCount;
+        if (size <= capacity/4) { // Issue if capacity ever reaches like 1 or 2?
+            resize(HALF);
+        }
         return removeCount;
 
     }
 
     int asVector::find(int element) {
-        for (int i =0; i<size;i++) {
+        for (size_t i = 0; i<size;i++) {
             if (data[i] == element) {
-                return i;
+                return (int)i;
             }
         }
         return ERROR_FLAG;
     }
-
-};
