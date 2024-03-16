@@ -13,14 +13,13 @@ static const float HALF = 0.5;
         delete[] data;
     }
 
-
     bool asVector::resize(float factor) {
         capacity = (size_t)((float)capacity*factor); // cast after float op
-        int* tmp = new int[(int)capacity];
+        int* tmp = new int[capacity];
         for (size_t i = 0; i < size; i++) {
             tmp[i] = data[i];
         }
-        delete data;
+        delete[] data;
         data = tmp;
         return true;
     }
@@ -53,6 +52,9 @@ static const float HALF = 0.5;
         }
         data[size] = element;
         size++;
+        if (size >= capacity) {
+            resize(DOUBLE);
+        }
         return true;
     }
 
@@ -101,7 +103,7 @@ static const float HALF = 0.5;
             return false;
         }
 
-        for (int i =idx; idx < size;i++) {
+        for (int i =idx; i < size;i++) {
             data[i] = data[i+1];
         }
         size--;
@@ -121,7 +123,6 @@ static const float HALF = 0.5;
                 data[i] = 0;
                 removeCount++;
             }
-
         }
         size = size-removeCount;
         if (size <= capacity/4) { // Issue if capacity ever reaches like 1 or 2?
