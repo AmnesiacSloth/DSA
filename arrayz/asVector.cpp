@@ -37,7 +37,7 @@ static const float HALF = 0.5;
 
     int asVector::at(int idx) {
         // check for mem boundaries
-        if (idx >= 0  && idx < this->size) {
+        if (idx >= 0  && idx < getSize()) {
             return data[idx];
         }
         else {
@@ -47,12 +47,12 @@ static const float HALF = 0.5;
     }
 
     bool asVector::push(int element) {
-        if (getSize() >= getCapacity()) { // == MUST MATCH, >= account for going over capacity, whether by 1 or 50
+        if (getSize() >= getCapacity()/2) { // == MUST MATCH, >= account for going over capacity, whether by 1 or 50
             resize(DOUBLE);
         }
         data[size] = element;
         size++;
-        if (size >= capacity) {
+        if (getSize() >= getCapacity()/2) {
             resize(DOUBLE);
         }
         return true;
@@ -60,11 +60,11 @@ static const float HALF = 0.5;
 
     bool asVector::insert(int element, int idx) {
         // Seg fault check
-        if (idx < 0 || idx >=getSize()) {
+        if (idx < 0 || idx >= getCapacity()) {
             return false;
         }
         size++; // update new elem count since we know insertion will succeed, and account for resizing
-        if (size >= capacity) {
+        if (getSize() >= getCapacity()/2) {
             resize(DOUBLE);
         }
         // reverse iterate through rest of the array pushing everything to the "right"
@@ -87,10 +87,10 @@ static const float HALF = 0.5;
     int asVector::pop() {
         int tmp = data[0];
         size--;
-        if (size <= capacity/4) { // Issue if capacity ever reaches like 1 or 2?
+        if (getSize() <= getCapacity()/4) { // Issue if capacity ever reaches like 1 or 2?
             resize(HALF);
         }
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < getSize(); i++) {
             data[i] = data[i+1];
         }
         data[size] = 0; // everything got pushed up so remove data from the old "last" element's index
@@ -99,18 +99,18 @@ static const float HALF = 0.5;
 
     bool asVector::deleteAt(int idx) {
         // Seg fault check
-        if (idx < 0 || idx >=this->size) {
+        if (idx < 0 || idx >= getSize()) {
             return false;
         }
 
-        for (int i =idx; i < size;i++) {
+        for (int i =idx; i < getSize();i++) {
             data[i] = data[i+1];
         }
         size--;
-        if (size <= capacity/4) { // Issue if capacity ever reaches like 1 or 2?
+        if (getSize() <= getCapacity()/4) { // Issue if capacity ever reaches like 1 or 2?
             resize(HALF);
         }
-        data[size] = 0;
+        data[getSize()] = 0;
 
         return true;
     }
@@ -124,8 +124,8 @@ static const float HALF = 0.5;
                 removeCount++;
             }
         }
-        size = size-removeCount;
-        if (size <= capacity/4) { // Issue if capacity ever reaches like 1 or 2?
+        size = getSize()-removeCount;
+        if (getSize() <= getCapacity()/4) { // Issue if capacity ever reaches like 1 or 2?
             resize(HALF);
         }
         return removeCount;
@@ -133,7 +133,7 @@ static const float HALF = 0.5;
     }
 
     int asVector::find(int element) {
-        for (size_t i = 0; i<size;i++) {
+        for (size_t i = 0; i<getSize();i++) {
             if (data[i] == element) {
                 return (int)i;
             }
