@@ -97,7 +97,10 @@ TEST_F(asVectorTest, PrependFunctionality) {
 * Tests pop()
 */
 TEST_F(asVectorTest, PopFunctionality) {
-    FAIL(); // POP BROKEN
+    // test on empty array
+    EXPECT_EQ(slothVecEmpty.pop(),-1);
+    // test on prefilled array
+    EXPECT_EQ(slothVec.pop(), 1);
 }
 /**
 * Tests deleteAt()
@@ -118,8 +121,8 @@ TEST_F(asVectorTest, RemoveFunctionality) {
     EXPECT_EQ(1,slothVec.remove(1)); // remove single element
     slothVecEmpty.push(1);
     slothVecEmpty.push(1);
-    EXPECT_EQ(2,slothVecEmpty.remove(1));
-    FAIL(); // REMOVE IS BROKEN!
+    EXPECT_EQ(2,slothVecEmpty.remove(1)); // remove multiple instances of element
+
 }
 /**
 * Tests Find()
@@ -145,4 +148,8 @@ TEST_F(asVectorTest, ResizeFunctionality) {
         slothVecEmpty.push(i+1);
     }
     EXPECT_EQ(slothVecEmpty.getCapacity(),32);
+    for (int i = 0; i < 12;i++) {
+        slothVecEmpty.pop();
+    }
+    EXPECT_EQ(slothVecEmpty.getCapacity(),16);
 }
