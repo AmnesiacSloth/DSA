@@ -4,85 +4,100 @@
 /**
 * AmnesiacSloth custom implementation of mutable linked list with tail pointer
 */
-class asLinkedList {
+template <typename Data> class asLinkedList {
 private:
+    /**
+     * Simple internal node that my linked list implementation is composed of
+     */
+    struct Node {
+        Data data;
+        Node* next;
+
+        Node(Data element, Node* next); // constructor
+        ~Node(); // destructor
+    };
 public:
     /**
-     * @TODO
-     * @return
+     * Constructor & Destructor
+     */
+    asLinkedList();
+    ~asLinkedList();
+    /**
+     * Getter function for number of elements in the linked list
+     * @return current number of elements in the Linked list
      */
     size_t getSize() const;
 
     /**
-     * @TODO
-     * @return
+     * Tests whether or not a list has any elements in it
+     * @return true if empty
      */
     bool isEmpty() const;
     /**
-     * @TODO
-     * @param idx
-     * @return
+     * Retrieves element that is currently at the specified index
+     * @param idx index to retrieve element from
+     * @return data held in the node at given position
      */
-    int valueAt(size_t idx) const;
+    Data valueAt(size_t idx) const;
 
     /**
-     * @TODO
-     * @param value
+     * Retrieves element at the front of the list
+     * @param value to be assigned as the first element in the list
      */
-    void pushFront(int value);
+    void pushFront(Data element);
 
     /**
-     * @TODO
-     * @return
+     * Retrieves and removes the first element in the list
+     * @return the removed element
      */
-    int popFront();
+    Data popFront();
 
     /**
-     * @TODO
-     * @param value
+     * Creates node holding data and inserts it to the back of the list
+     * @param value to be inserted
      */
-    void push_back(int value);
+    void push_back(Data value);
     /**
-     * @TODO
-     * @return
+     * Retrieves data and removes the last node in the list
+     * @return data in the last node in the list
      */
-    int popBack();
+    Data popBack();
     /**
-     * @TODO
-     * @return
+     * Retrieves data held in the first node but does not remove node
+     * @return data in the first node
      */
-    int front();
+    Data front();
     /**
-     * @TODO
-     * @return
+     * Retrieves data held in the last node but does not remove i
+     * @return data in the last node
      */
-    int back();
+    Data back();
     /**
-     * @TODO
-     * @param idx
-     * @param value
+     * Creates and inserts a node with given data at specified index
+     * @param idx location to insert node
+     * @param data to insert into node
      */
-    void insert(size_t idx, int value);
+    void insert(size_t idx, Data value);
     /**
-     * @TODO
-     * @param idx
+     * Erases and removes node in the list from specified address
+     * @param idx to remove element from
      */
     void erase(size_t idx);
     /**
-     * @TODO
-     * @param n
-     * @return
+     * Returns data in node N positions from end of the list
+     * @param n number of positions from end of the list
+     * @return data in found node
      */
-    int valueNFromEnd(size_t n);
+    Data valueNFromEnd(size_t n);
     /**
-     * @TODO
+     * Reverses the ordering of elements in the list
      */
     void reverse();
     /**
-     * @TODO
-     * @param value
+     * Finds and removes first instance of data in the list
+     * @param element to remove from list
      */
-    void removeValue(int value);
+    void removeValue(Data value);
 }; // asLinkedList
 
 #endif //DSA_ASLINKEDLIST_H
