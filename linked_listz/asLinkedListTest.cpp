@@ -38,6 +38,7 @@ TEST_F(asLinkedListTest, SizeFunctionality) {
     emptyLinked.insert(0,4);
     EXPECT_EQ(emptyLinked.getSize(), 1 );
     // test after removal
+    emptyLinked.popFront();
     EXPECT_EQ(emptyLinked.getSize(), 0);
     // test on initial prefilled LL
     EXPECT_EQ(baselineLink.getSize() , 6);
@@ -48,6 +49,7 @@ TEST_F(asLinkedListTest, SizeFunctionality) {
 TEST_F(asLinkedListTest,EmptyFunctionality) {
     // test on initially empty LL
     EXPECT_TRUE(emptyLinked.isEmpty());
+    // test on initially prefilled linked list
     EXPECT_FALSE(baselineLink.isEmpty());
 }
 /**
@@ -57,7 +59,7 @@ TEST_F(asLinkedListTest,ValueAtFunctionality) {
     // Test value out of bounds
     EXPECT_EQ(emptyLinked.valueAt(3), -1 );
     // Test value within bounds
-    EXPECT_EQ(emptyLinked.valueAt(0), 1);
+    EXPECT_EQ(baselineLink.valueAt(3),4);
 }
 /**
  * Test pushFront()
@@ -126,10 +128,10 @@ TEST_F(asLinkedListTest,FrontFunctionality) {
 TEST_F(asLinkedListTest,BackFunctionality) {
     // check before and after a pop
     EXPECT_EQ(baselineLink.getSize(),SETUPSIZE);
-    EXPECT_EQ(baselineLink.back(), 1);
+    EXPECT_EQ(baselineLink.back(), 6);
     baselineLink.popBack();
     EXPECT_EQ(baselineLink.getSize(),SETUPSIZE-1);
-    EXPECT_EQ(baselineLink.back(),2);
+    EXPECT_EQ(baselineLink.back(),5);
 }
 
 /**
@@ -143,6 +145,9 @@ TEST_F(asLinkedListTest,InsertFunctionality) {
         EXPECT_EQ(emptyLinked.back(), i+1);
     }
     EXPECT_EQ(emptyLinked.getSize(), SETUPSIZE);
+    // Test on out-of-bounds insert
+    emptyLinked.insert(17,9);
+    EXPECT_EQ(emptyLinked.getSize(),6);
 }
 /**
 * Test erase()
