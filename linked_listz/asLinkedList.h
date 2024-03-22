@@ -1,10 +1,14 @@
 #ifndef DSA_ASLINKEDLIST_H
 #define DSA_ASLINKEDLIST_H
 #include <iostream>
+
+#define ZERO 0
+
 /**
 * AmnesiacSloth custom implementation of mutable linked list with tail pointer
 */
-template <typename Data> class asLinkedList {
+template <typename Data>
+class asLinkedList {
 private:
     /**
      * Simple internal node that my linked list implementation is composed of
@@ -13,10 +17,14 @@ private:
         Data data;
         Node* next;
 
-        Node(Data element, Node* next); // constructor
+        Node(Data element, Node *nodePtr); // constructor
         ~Node(); // destructor
     };
 public:
+    Node* Head;
+    Node* Tail;
+    size_t count;
+
     /**
      * Constructor & Destructor
      */
@@ -100,4 +108,6 @@ public:
     void removeValue(Data value);
 }; // asLinkedList
 
+
+#include "asLinkedList.tpp"
 #endif //DSA_ASLINKEDLIST_H
