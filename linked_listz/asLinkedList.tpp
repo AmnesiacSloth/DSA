@@ -27,7 +27,9 @@ bool asLinkedList<Data>::isEmpty() const {
 
 template<typename Data>
 Data asLinkedList<Data>::valueAt(size_t idx) const {
-    if (idx)
+    if (idx ) {
+
+    }
 }
 
 
