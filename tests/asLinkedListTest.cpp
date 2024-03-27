@@ -2,7 +2,6 @@
 #include <gtest/gtest.h>
 
 static const int SETUPSIZE = 6;
-static const int ZERO = 0;
 /*
  * Test Fixture for AmnesiacSloth's Custom Linked List Class :)
  */
