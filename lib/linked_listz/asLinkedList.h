@@ -50,7 +50,7 @@ public:
 
     /**
      * Retrieves element at the front of the list
-     * @param value to be assigned as the first element in the list
+     * @param element to be assigned as the first element in the list
      */
     void pushFront(Data element);
 
@@ -64,7 +64,7 @@ public:
      * Creates node holding data and inserts it to the back of the list
      * @param value to be inserted
      */
-    void push_back(Data value);
+    void pushBack(Data value);
     /**
      * Retrieves data and removes the last node in the list
      * @return data in the last node in the list
