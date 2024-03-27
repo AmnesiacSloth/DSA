@@ -10,8 +10,8 @@ asLinkedList<Data>::Node::Node(Data element, asLinkedList::Node *nodePtr) {
 // NO SENTINEL NODE IN THIS IMPLEMENTATION
 template<typename Data>
 asLinkedList<Data>::asLinkedList() {
-    head = nullptr;
-    tail = nullptr;
+    Head = nullptr;
+    Tail = nullptr;
     count = ZERO;
 }
 
@@ -27,8 +27,13 @@ bool asLinkedList<Data>::isEmpty() const {
 
 template<typename Data>
 Data asLinkedList<Data>::valueAt(size_t idx) const {
-    if (idx ) {
-
+    // bounds check
+    if (idx >= getSize() || idx < 0) {
+        return nullptr;
+    }
+    Node *ptr = Head;
+    for (int i = 0; i < idx; i++) {
+        Head = Head->next;
     }
 }
 
