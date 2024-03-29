@@ -71,3 +71,50 @@ modification to the original object, best of both worlds!
 > taking universal references (e.g., T&& with std::forward<T>) can optimize for both passing by value and reference, 
 > depending on the context. This advanced feature allows functions to perfectly forward arguments to other functions, 
 > minimizing unnecessary copies.
+
+## STD Exceptions
+
+- `std::exception` is a class that serves as the base class for all standard exception types.
+- Provides a virtual function `what()` that returns a C-style string describing the error. Can be overwritten in 
+derived classes to provide more specific error messages
+- Usually you don't throw a `std::exception` itself, but instead you use one of its derived classes
+
+### Derived Classes from `std::exception`
+- The two most prevalent are logic_error and runtime_error
+
+### `std::logic_error`
+> Represents errors that could be detected before a program runs. They are the result of flaws in program logic
+---
+##### `std::invalid_argument`
+- Thrown when an invalid argument is passed.
+##### `std::domain_error`
+- Used when a mathematical function receives an argument outside its domain.
+##### `std::length_error`
+- Indicates an attempt to create an object larger than a maximum size.
+
+##### `std::out_of_range`
+- For arguments that are outside the valid range.
+
+### `std::runtime_error`
+> Represents errors that can only be detected during runtime.
+---
+##### `std::range_error`
+- Used when a result of a computation cannot be represented by the destination type.
+##### `std::overflow_error`
+- Indicates arithmetic overflow.
+##### `std::underflow_error`
+- Indicates arithmetic underflow.
+##### `std::system_error`
+- Used to report errors from the operating system or other low-level operations.
+
+### Other Derived Classe 
+> Exception classes derived from `std::exception` that don't fit neatly into logic or runtime error categories
+- `std::bad_alloc`
+- `std::bad_cast`
+- `std::bad_typeid`
+- `std::bad_exception`
+- `std::bad_function_call`
+- `std::bad_weak_ptr`
+
+Note: These exceptions handle errors that are fundamentally different from the more common runtime and logic errors,
+often dealing with lower-level operations such as memory allocation, type identification, and function invocation. 

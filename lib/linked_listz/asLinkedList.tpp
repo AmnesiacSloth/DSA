@@ -1,5 +1,5 @@
 #include "asLinkedList.h"
-
+#include <exception>
 template <typename Data>
 asLinkedList<Data>::Node::Node(Data element, asLinkedList::Node *nodePtr) {
     data = element;
@@ -29,11 +29,11 @@ template<typename Data>
 Data asLinkedList<Data>::valueAt(size_t idx) const {
     // bounds check
     if (idx >= getSize() || idx < 0) {
-        return nullptr;
+        throw std::range_error("");
     }
     Node *ptr = Head;
     for (int i = 0; i < idx; i++) {
-        Head = Head->next;
+        ptr = ptr->next;
     }
 }
 
