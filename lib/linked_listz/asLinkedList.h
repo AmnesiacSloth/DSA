@@ -16,7 +16,6 @@ private:
     struct Node {
         Data data;
         Node* next;
-
         Node(Data element, Node *nodePtr); // constructor
         ~Node(); // destructor
     };
@@ -49,7 +48,7 @@ public:
     Data valueAt(size_t idx) const;
 
     /**
-     * Retrieves element at the front of the list
+     * Inserts element at the front of the list
      * @param element to be assigned as the first element in the list
      */
     void pushFront(Data element);
