@@ -22,3 +22,5 @@ int main() {
     printf("Hello %s\n")
 }
 ```
+
+Before our code executes, the compiler first considers header files and links their source files to this target so that any functions not defined in our source file have definitions. Then it allocates space on the stack so that this code can be run. Symbols are loaded and our operating system allows the program to run? 
