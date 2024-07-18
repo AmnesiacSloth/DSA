@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "MSYS2",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/devkitPro/msys2/usr/include",
+                "C:/devkitPro/msys2/usr/lib/gcc/x86_64-pc-msys/13.3.0/include"
+            ],
+            "defines": [],
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "C:/devkitPro/msys2/usr/bin/gcc.exe"
+        }
+    ],
+    "version": 4
+}
